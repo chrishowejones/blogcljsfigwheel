@@ -27,7 +27,8 @@
                                    :output-to "target/cljsbuild/public/js/compiled/blogcljsfigwheel.js"
                                    :output-dir "target/cljsbuild/public/js/compiled/out"
                                    :asset-path "js/compiled/out"}}]}
-  :profiles {:uberjar {:aot :all}
+  :profiles {:uberjar {:aot :all
+                       :prep-tasks ["compile" ["cljsbuild" "once" "app"]]}
              :dev {:source-paths ["dev/src"]
                    :dependencies [[figwheel-sidecar "0.5.1"]
                                   [org.clojure/tools.namespace "0.2.3"]
