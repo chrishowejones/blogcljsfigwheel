@@ -8,10 +8,13 @@
                  [compojure "1.5.0"]
                  [ring/ring-defaults "0.2.0"]
                  [ring/ring-jetty-adapter "1.4.0"]
+                 [ring-middleware-format "0.7.0"]
                  [hiccup "1.0.5"]
                  ;; clojurescript dependencies
                  [org.clojure/clojurescript "1.7.170" :exclusions [org.apache.ant/ant]]
-                 [reagent "0.5.1" :exclusions [org.clojure/tools.reader]]]
+                 [reagent "0.5.1" :exclusions [org.clojure/tools.reader]]
+                 [cljs-http "0.1.38"]
+                 [org.clojure/core.async "0.2.374"]]
   :source-paths ["src"]
   :main blogcljsfigwheel.core
   :plugins [[lein-cljsbuild "1.1.1"]

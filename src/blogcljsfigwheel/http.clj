@@ -1,12 +1,21 @@
 (ns blogcljsfigwheel.http
   (:require [com.stuartsierra.component :as component]
-            [compojure.core :refer [defroutes GET]]
+            [compojure.core :refer [defroutes GET POST]]
             [compojure.route :as route]
             [hiccup.core :refer [html]]
             [hiccup.page :refer [include-js]]
             [ring.middleware.defaults :refer [wrap-defaults site-defaults]]
             [ring.adapter.jetty :refer [run-jetty]]))
 
+(def default-config
+  {:params {:urlencoded true
+            :keywordize true
+            :nested     true
+            :multipart  true}
+
+   :responses {:not-modified-responses true
+               :absolute-redirects     true
+               :content-types          true}})
 (def home-page
   (html
    [:html
@@ -23,10 +32,11 @@
 
 (defroutes app-routes
   (GET "/" [] home-page)
+  (POST "/echo/:echo" [echo] (str echo " has been to the server and back."))
   (route/not-found "Not Found"))
 
 (def app
-  (wrap-defaults app-routes site-defaults))
+  (wrap-defaults app-routes (assoc-in site-defaults [:security :anti-forgery] false)))
 
 (defrecord Server-component [server-options]
   component/Lifecycle
