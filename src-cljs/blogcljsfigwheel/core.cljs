@@ -32,8 +32,7 @@
                     :class "btn btn-default"
                     :on-click #(post-echo (:name @local-state))}
            "Submit"]]]
-        [:div.row [:br]]
-        [:div.row
+        [:div.row {:style {:margin-top "20px"}}
          [:div.col-md-12
           [:p (str "Echo from server: " (:echo @state))]]]]])))
 
