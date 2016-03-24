@@ -16,7 +16,7 @@
 
 (defn post-echo [echo]
   (go
-    (let [echo-response (<! (http/post (str "http://localhost:8000/echo/" echo)))]
+    (let [echo-response (<! (http/post (str "echo/" echo)))]
       (swap! state assoc :echo (:body echo-response)))))
 
 (defn home-page []
