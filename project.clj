@@ -26,12 +26,19 @@
                         :compiler {:main "blogcljsfigwheel.core"
                                    :output-to "target/cljsbuild/public/js/compiled/blogcljsfigwheel.js"
                                    :output-dir "target/cljsbuild/public/js/compiled/out"
-                                   :asset-path "js/compiled/out"}}]}
+                                   :asset-path "js/compiled/out"}}
+                       {:id "test"
+                        :source-paths ["src-cljs" "test-cljs"]
+                        :compiler {:output-to "resources/private/js/unit-test.js"
+                                   :optimizations :whitespace
+                                   :pretty-print true}}]}
   :profiles {:uberjar {:aot :all
                        :prep-tasks ["compile" ["cljsbuild" "once" "app"]]}
-             :dev {:source-paths ["dev/src"]
+             :dev {:source-paths ["dev/src" "src-cljs" "test-cljs"]
                    :dependencies [[figwheel-sidecar "0.5.1"]
                                   [org.clojure/tools.namespace "0.2.3"]
-                                  [com.cemerick/piggieback "0.2.1"]]}}
+                                  [com.cemerick/piggieback "0.2.1"]
+                                  [lein-doo "0.1.6"]]
+                   :plugins [[lein-doo "0.1.6"]]}}
   :repl-options {:init-ns user
                  :nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]})

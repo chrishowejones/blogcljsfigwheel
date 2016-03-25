@@ -28,7 +28,8 @@
      [:div#app
       [:h3 "Loading...."]
       [:p "Loading application. Please wait...."]]
-     (include-js "js/compiled/blogcljsfigwheel.js")]]))
+     (include-js "js/compiled/blogcljsfigwheel.js")
+     [:script {:type "text/javascript"} "addEventListener(\"load\", blogcljsfigwheel.core.main, false);"]]]))
 
 (defroutes app-routes
   (GET "/" [] home-page)
