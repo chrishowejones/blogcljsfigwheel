@@ -13,7 +13,8 @@
    [:div.col-md-3 body]])
 
 (defn text-input [label state]
-  [row label [:input {:type "text" :class "form-control" :on-change #(swap! state assoc :name (-> % .-target .-value))}]])
+  [row label ^{:key label}
+   [:input {:type "text" :class "form-control" :on-change #(swap! state assoc :name (-> % .-target .-value))}]])
 
 (defn echo [echo state]
   (go
@@ -45,13 +46,13 @@
       [:div.container
        [:div [:h2 "Welcome to my test cljsbuild"]
         [:div [:p "This is a test app that echos a name."]]
-        [text-input "Enter name:" local-state]
+         [text-input "Enter name:" local-state]
         [:div.row
          [:div.col-md-3
           [:button {:type "submit"
-                    :class "btn btn-default"
-                    :on-click #(echo (:name @local-state) state)}
-           "Submit"]]]
+                        :class "btn btn-default"
+                        :on-click #(echo (:name @local-state) state)}
+               "Submit"]]]
         (let [echo-from-server (:echo @state)]
           [:div
            [:div.row {:style {:margin-top "20px"}}
@@ -59,7 +60,7 @@
              [:p (str "Echo from server: " echo-from-server)]]]
            [:div.row
             [:div.col-md-12
-             [:p (str "Pig latin echo: " (pig-latin-first-word echo-from-server))]]]])]])))
+              [:p (str "Pig latin echo: " (pig-latin-first-word echo-from-server))]]]])]])))
 
 (defn mount-root []
   (reagent/render [home-page] (.getElementById js/document "app")))
