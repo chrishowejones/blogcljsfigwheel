@@ -21,24 +21,27 @@
             [lein-figwheel "0.5.1"]]
   :resource-paths ["resources" "target/cljsbuild"]
   :target-path "target/%s"
-  :cljsbuild {:builds [{:id "app"
-                        :source-paths ["src-cljs"]
-                        :compiler {:main "blogcljsfigwheel.core"
-                                   :output-to "target/cljsbuild/public/js/compiled/blogcljsfigwheel.js"
-                                   :output-dir "target/cljsbuild/public/js/compiled/out"
-                                   :asset-path "js/compiled/out"}}
-                       {:id "test"
-                        :source-paths ["src-cljs" "test-cljs"]
-                        :compiler {:output-to "resources/private/js/unit-test.js"
-                                   :optimizations :whitespace
-                                   :pretty-print true}}]}
+  :cljsbuild {:builds {:app {:source-paths ["src-cljs"]
+                             :compiler {:main "blogcljsfigwheel.core"
+                                        :output-to "target/cljsbuild/public/js/compiled/blogcljsfigwheel.js"
+                                        :output-dir "target/cljsbuild/public/js/compiled/out"
+                                        :asset-path "js/compiled/out"}}
+                       :test {:source-paths ["src-cljs" "test-cljs"]
+                              :compiler {:output-to "resources/private/js/unit-test.js"
+                                         :optimizations :whitespace
+                                         :pretty-print true}}}}
   :profiles {:uberjar {:aot :all
+                       :cljsbuild {:builds {:app {:jar true
+                                                  :compiler {:optimizations :advanced}}}}
                        :prep-tasks ["compile" ["cljsbuild" "once" "app"]]}
-             :dev {:source-paths ["dev/src" "src-cljs" "test-cljs"]
+             :dev {:cljsbuild {:builds {:app {:compiler {:optimizations :whitespace
+                                                         :pretty-print true}}}}
+                   :source-paths ["dev/src" "src-cljs" "test-cljs"]
                    :dependencies [[figwheel-sidecar "0.5.1"]
                                   [org.clojure/tools.namespace "0.2.3"]
                                   [com.cemerick/piggieback "0.2.1"]
                                   [lein-doo "0.1.6"]]
                    :plugins [[lein-doo "0.1.6"]]}}
+  :aliases {"test-all" ["do" "test" ["doo" "phantom" "test" "once"]]}
   :repl-options {:init-ns user
                  :nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]})
