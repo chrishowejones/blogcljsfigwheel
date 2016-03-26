@@ -36,7 +36,7 @@
    :build-ids ["dev"]
    :all-builds
    [{:id "dev"
-     :source-paths ["src-cljs"]
+     :source-paths ["src-cljs" "test-cljs"]
      :figwheel true
      :compiler {:main "blogcljsfigwheel.core"
                 :output-to "target/cljsbuild/public/js/compiled/blogcljsfigwheel.js"

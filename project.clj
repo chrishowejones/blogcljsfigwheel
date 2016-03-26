@@ -34,7 +34,8 @@
                        :cljsbuild {:builds {:app {:jar true
                                                   :compiler {:optimizations :advanced}}}}
                        :prep-tasks ["compile" ["cljsbuild" "once" "app"]]}
-             :dev {:cljsbuild {:builds {:app {:compiler {:optimizations :whitespace
+             :dev {:cljsbuild {:builds {:app {:figwheel true
+                                              :compiler {:optimizations :whitespace
                                                          :pretty-print true}}}}
                    :source-paths ["dev/src" "src-cljs" "test-cljs"]
                    :dependencies [[figwheel-sidecar "0.5.1"]
