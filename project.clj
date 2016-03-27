@@ -27,7 +27,8 @@
                                         :output-dir "target/cljsbuild/public/js/compiled/out"
                                         :asset-path "js/compiled/out"}}
                        :test {:source-paths ["src-cljs" "test-cljs"]
-                              :compiler {:output-to "resources/private/js/unit-test.js"
+                              :compiler {:main "blogcljsfigwheel.test-runner"
+                                         :output-to "resources/private/js/unit-test.js"
                                          :optimizations :whitespace
                                          :pretty-print true}}}}
   :profiles {:uberjar {:aot :all
